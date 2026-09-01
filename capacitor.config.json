@@ -1,0 +1,9 @@
+{
+  "appId": "com.rfgarcia.treinos",
+  "appName": "Treinos",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "always",
+    "allowsLinkPreview": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "treinos-iphone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicativo offline de acompanhamento dos programas de treino.",
+  "scripts": {
+    "sync": "cap sync ios",
+    "open:ios": "cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.1",
+    "@capacitor/ios": "8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.1"
+  }
+}
