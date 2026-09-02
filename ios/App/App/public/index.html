@@ -4,46 +4,154 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#090b09">
+  <meta name="description" content="Seus programas de treino, progresso e sequência diária.">
   <title>Treinos</title>
   <style>
-    :root{color-scheme:dark;--ink:#f6f8ed;--muted:#aab1a2;--ground:#090b09;--line:#414a3c;--signal:#c7ff3c;--signal-ink:#101500}
+    :root{color-scheme:dark;--ink:#f6f8ed;--muted:#aab1a2;--ground:#090b09;--surface:#121610;--line:#414a3c;--signal:#c7ff3c;--signal-ink:#101500}
     *{box-sizing:border-box}
     html{background:var(--ground)}
     body{margin:0;min-width:280px;min-height:100vh;min-height:100dvh;background:var(--ground);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
     body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 90% 0,rgba(199,255,60,.12),transparent 38%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,100% 32px}
+    ::selection{background:var(--signal);color:var(--signal-ink)}
     main{position:relative;width:min(720px,100%);margin:0 auto;padding:max(34px,env(safe-area-inset-top)) 18px max(36px,env(safe-area-inset-bottom))}
     header{padding:18px 2px 28px;border-bottom:1px solid var(--line)}
-    h1{max-width:8ch;margin:0;font-size:clamp(3.9rem,20vw,7rem);line-height:.78;letter-spacing:-.065em;text-transform:uppercase}
+    h1{max-width:8ch;margin:0;font-size:clamp(3.9rem,20vw,6rem);line-height:.82;letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance}
     header p{display:flex;align-items:center;gap:9px;margin:20px 0 0;color:var(--signal);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     header p::before{content:"";width:24px;height:3px;background:var(--signal)}
-    section{margin-top:26px}
-    h2{margin:0 0 12px;color:var(--muted);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
+    section{margin-top:30px}
+    h2{margin:0;color:var(--muted);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
+    .checkin{padding:20px;background:var(--surface);border:1px solid var(--line)}
+    .checkin-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:20px}
+    .checkin-copy{text-align:right}
+    .checkin-copy strong{display:block;color:var(--signal);font-size:1.08rem;letter-spacing:-.02em}
+    .checkin-copy span{display:block;margin-top:3px;color:var(--muted);font-size:.7rem}
+    .days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+    .day{position:relative;display:grid;place-items:center;min-width:0;aspect-ratio:1;border:1px solid #2d342a;color:#747d6d;font-variant-numeric:tabular-nums}
+    .day-name{position:absolute;top:5px;font-size:.52rem;font-weight:800;text-transform:uppercase}
+    .day-number{margin-top:7px;font-size:.78rem;font-weight:700}
+    .day svg{position:absolute;right:3px;bottom:3px;width:11px;height:11px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:3;opacity:0}
+    .day.checked{border-color:#718637;background:rgba(199,255,60,.08);color:var(--signal)}
+    .day.checked svg{opacity:1}
+    .day.today{outline:2px solid var(--ink);outline-offset:2px}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:12px}
+    .section-heading p{max-width:26ch;margin:0;color:var(--muted);font-size:.7rem;line-height:1.4;text-align:right}
     .programs{display:grid;border-top:1px solid var(--line)}
-    a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:96px;padding:18px 4px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
-    a:active{background:rgba(199,255,60,.06)}
-    strong{display:block;font-size:1.28rem;letter-spacing:-.02em}
-    small{display:block;margin-top:5px;color:var(--muted);font-size:.76rem}
-    b{display:grid;place-items:center;min-width:54px;height:46px;border:1px solid var(--line);color:var(--signal);font-size:1rem;letter-spacing:.04em}
+    .program{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:100px;padding:18px 4px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+    .program:active{background:rgba(199,255,60,.06)}
+    .program strong{display:block;font-size:1.28rem;letter-spacing:-.02em}
+    .program small{display:block;margin-top:5px;color:var(--muted);font-size:.76rem}
+    .program b{display:grid;place-items:center;min-width:54px;height:46px;border:1px solid var(--line);color:var(--signal);font-size:1rem;letter-spacing:.04em}
+    .current-label{display:none;margin-top:8px;color:var(--signal);font-size:.62rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .program[aria-current="true"]{padding-inline:14px;background:rgba(199,255,60,.07);box-shadow:0 12px 32px rgba(0,0,0,.18)}
+    .program[aria-current="true"] .current-label{display:block}
+    .program[aria-current="true"] b{border-color:var(--signal);background:var(--signal);color:var(--signal-ink)}
     footer{margin:28px 2px 0;color:var(--muted);font-size:.72rem;line-height:1.5}
     a:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+    @media(max-width:380px){.checkin{padding:16px}.days{gap:5px}.day-name{top:4px;font-size:.46rem}.day-number{font-size:.7rem}.section-heading{display:block}.section-heading p{margin-top:7px;text-align:left}}
+    @media(prefers-reduced-motion:no-preference){.checkin,.programs{animation:reveal .45s cubic-bezier(.16,1,.3,1) both}.programs{animation-delay:.08s}@keyframes reveal{from{opacity:.01;transform:translateY(10px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}}
   </style>
+  <script>
+    (() => {
+      const storageKey = 'gym-app:profile:v1';
+      const allowedPrograms = new Set([
+        'treino-intermediario-3x.html',
+        'treino-intermediario-4x.html',
+        'treino-homem-hard-3x.html',
+        'treino-homem-hard-4x.html'
+      ]);
+      let profile;
+      try { profile = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch { profile = {}; }
+      profile.checkins = Array.isArray(profile.checkins) ? profile.checkins : [];
+      const now = new Date();
+      const pad = value => String(value).padStart(2, '0');
+      const today = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+      if (!profile.checkins.includes(today)) profile.checkins.push(today);
+      profile.checkins = [...new Set(profile.checkins)].sort();
+      try { localStorage.setItem(storageKey, JSON.stringify(profile)); } catch {}
+      window.GYM_PROFILE = profile;
+      window.GYM_PROFILE_KEY = storageKey;
+      const choosing = new URLSearchParams(location.search).has('choose');
+      if (!choosing && allowedPrograms.has(profile.activeProgram)) location.replace(profile.activeProgram);
+    })();
+  </script>
 </head>
 <body>
   <main>
     <header>
       <h1>Treinos</h1>
-      <p>Escolha seu programa</p>
+      <p id="intro-copy">Escolha seu plano</p>
     </header>
+
+    <section class="checkin" aria-labelledby="ritmo">
+      <div class="checkin-head">
+        <h2 id="ritmo">Seu ritmo</h2>
+        <div class="checkin-copy" aria-live="polite">
+          <strong id="streak">1 dia seguido</strong>
+          <span id="checkin-total">Check-in de hoje feito</span>
+        </div>
+      </div>
+      <div class="days" id="checkin-days" role="list" aria-label="Check-ins dos últimos 14 dias"></div>
+    </section>
+
     <section aria-labelledby="programas">
-      <h2 id="programas">Programas disponíveis</h2>
+      <div class="section-heading">
+        <h2 id="programas">Planos disponíveis</h2>
+        <p>O plano atual abre automaticamente até você trocar.</p>
+      </div>
       <div class="programs">
-        <a href="treino-intermediario-3x.html"><span><strong>Intermediário</strong><small>3 vezes por semana · W1–W8</small></span><b>3X</b></a>
-        <a href="treino-intermediario-4x.html"><span><strong>Intermediário</strong><small>4 vezes por semana · W1–W4</small></span><b>4X</b></a>
-        <a href="treino-homem-hard-3x.html"><span><strong>Homem-Hard</strong><small>3 vezes por semana · W1–W8</small></span><b>3X</b></a>
-        <a href="treino-homem-hard-4x.html"><span><strong>Homem-Hard</strong><small>4 vezes por semana · W1–W8</small></span><b>4X</b></a>
+        <a class="program" data-program="treino-intermediario-3x.html" href="treino-intermediario-3x.html"><span><strong>Intermediário</strong><small>3 vezes por semana · W1–W8</small><span class="current-label">Plano atual</span></span><b>3X</b></a>
+        <a class="program" data-program="treino-intermediario-4x.html" href="treino-intermediario-4x.html"><span><strong>Intermediário</strong><small>4 vezes por semana · W1–W4</small><span class="current-label">Plano atual</span></span><b>4X</b></a>
+        <a class="program" data-program="treino-homem-hard-3x.html" href="treino-homem-hard-3x.html"><span><strong>Homem-Hard</strong><small>3 vezes por semana · W1–W8</small><span class="current-label">Plano atual</span></span><b>3X</b></a>
+        <a class="program" data-program="treino-homem-hard-4x.html" href="treino-homem-hard-4x.html"><span><strong>Homem-Hard</strong><small>4 vezes por semana · W1–W8</small><span class="current-label">Plano atual</span></span><b>4X</b></a>
       </div>
     </section>
-    <footer>Funciona offline. Seu progresso e os pesos permanecem somente neste aparelho.</footer>
+    <footer>Funciona offline. Plano, sequência, progresso e pesos permanecem somente neste aparelho.</footer>
   </main>
+  <script>
+    (() => {
+      const profile = window.GYM_PROFILE || { checkins: [] };
+      const checkins = new Set(profile.checkins || []);
+      const pad = value => String(value).padStart(2, '0');
+      const dateKey = date => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+      const labels = ['dom','seg','ter','qua','qui','sex','sáb'];
+      const formatter = new Intl.DateTimeFormat('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+
+      let streak = 0;
+      const cursor = new Date();
+      cursor.setHours(12,0,0,0);
+      while (checkins.has(dateKey(cursor))) {
+        streak += 1;
+        cursor.setDate(cursor.getDate()-1);
+      }
+      document.querySelector('#streak').textContent = `${streak} ${streak === 1 ? 'dia seguido' : 'dias seguidos'}`;
+      document.querySelector('#checkin-total').textContent = `${checkins.size} ${checkins.size === 1 ? 'check-in registrado' : 'check-ins registrados'}`;
+
+      const calendar = document.querySelector('#checkin-days');
+      const todayKey = dateKey(new Date());
+      for (let offset = 13; offset >= 0; offset -= 1) {
+        const date = new Date();
+        date.setHours(12,0,0,0);
+        date.setDate(date.getDate()-offset);
+        const key = dateKey(date);
+        const checked = checkins.has(key);
+        const day = document.createElement('div');
+        day.className = `day${checked ? ' checked' : ''}${key === todayKey ? ' today' : ''}`;
+        day.setAttribute('role','listitem');
+        day.setAttribute('aria-label', `${formatter.format(date)}: ${checked ? 'check-in feito' : 'sem check-in'}`);
+        day.innerHTML = `<span class="day-name">${labels[date.getDay()]}</span><span class="day-number">${date.getDate()}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>`;
+        calendar.appendChild(day);
+      }
+
+      document.querySelectorAll('[data-program]').forEach(link => {
+        const selected = link.dataset.program === profile.activeProgram;
+        if (selected) link.setAttribute('aria-current','true');
+        link.addEventListener('click', () => {
+          profile.activeProgram = link.dataset.program;
+          try { localStorage.setItem(window.GYM_PROFILE_KEY, JSON.stringify(profile)); } catch {}
+        });
+      });
+      if (profile.activeProgram) document.querySelector('#intro-copy').textContent = 'Troque ou continue seu plano';
+    })();
+  </script>
 </body>
 </html>
