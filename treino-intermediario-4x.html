@@ -61,6 +61,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
 @media(min-width:1100px){.shell{padding-top:42px}.mast{padding-bottom:30px}.control-deck{top:0}.program-title{font-size:6.7rem}.workspace{grid-template-columns:minmax(0,760px) 1fr;gap:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}}
 </style><style>.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 8px}.app-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}.app-home svg{width:17px;height:17px;fill:none;stroke:var(--signal);stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.app-home:focus-visible{outline:3px solid var(--signal);outline-offset:3px}.daily-status{display:flex;align-items:center;gap:9px;min-height:44px;padding:6px 10px;border:1px solid var(--line);color:var(--signal)}.daily-status>svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5}.daily-status span{display:grid;line-height:1.05}.daily-status strong{font-family:Barlow,Arial Narrow,sans-serif;font-size:.92rem}.daily-status small{margin-top:3px;color:var(--muted);font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}</style>
+<style>html{scrollbar-color:var(--line-strong) var(--ground)}*::-webkit-scrollbar{width:10px}*::-webkit-scrollbar-track{background:var(--ground)}*::-webkit-scrollbar-thumb{border:3px solid var(--ground);background:var(--line-strong)}.weight-input:focus-visible{outline:2px solid var(--signal);outline-offset:3px;background:rgba(199,255,60,.045)}@media(max-width:420px){.mast{position:relative;display:block;padding-right:0}.program-title{max-width:none;font-size:clamp(2.55rem,14vw,3.35rem);white-space:nowrap}.status-stamp{position:absolute;right:2px;bottom:19px;padding:8px 10px}}@media(max-width:380px){.exercise{grid-template-columns:34px minmax(0,1fr) 56px 48px;gap:7px}.sets{min-width:48px}.weight-input{font-size:1.3rem}}@media(hover:hover){.daily-status:hover{border-color:var(--line-strong)}.app-home:hover{color:var(--ink)}}</style>
+<style>@media(max-width:420px){.status-stamp{display:flex;align-items:baseline;gap:5px;bottom:24px;border:0;padding:0;font-size:.54rem}.status-stamp strong{display:inline;font-size:1rem}}</style>
 </head>
 <body>
   <main class="shell">
@@ -219,11 +221,11 @@ function exerciseRow(item, index) {
     const key = keyFor(index); saved.done[key] = !saved.done[key];
     if (!saved.done[key]) delete saved.done[key];
     persist(); row.dataset.complete = String(Boolean(saved.done[key]));
-    complete.setAttribute('aria-pressed', row.dataset.complete); copy.setAttribute('aria-pressed', row.dataset.complete);
+    copy.setAttribute('aria-pressed', row.dataset.complete);
     renderProgress();
     if (completedCount() === current().day.exercises.length) showToast('Treino concluído. Excelente trabalho.');
   };
-  complete.setAttribute('aria-label', `Marcar ${completeLabel}`); complete.setAttribute('aria-pressed', row.dataset.complete); complete.onclick = toggle;
+  complete.setAttribute('aria-hidden', 'true'); complete.tabIndex = -1; complete.onclick = toggle;
   copy.setAttribute('aria-label', `Marcar ${completeLabel}`); copy.setAttribute('aria-pressed', row.dataset.complete); copy.onclick = toggle;
   weight.setAttribute('aria-label', `Peso em kg para ${item.exercise}`); weight.value = saved.weights[keyFor(index)] || '';
   weight.oninput = () => { const key = keyFor(index); if (weight.value) saved.weights[key] = weight.value; else delete saved.weights[key]; persist(); };
