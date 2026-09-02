@@ -60,11 +60,14 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
 @media(min-width:760px){.shell{padding:30px 28px 60px}.control-deck{margin-inline:0;padding-inline:0}.workspace{grid-template-columns:minmax(0,1fr) 260px;gap:52px}.side-panel{display:block;position:sticky;top:148px;align-self:start;padding:20px 0 0;border-top:1px solid var(--line-strong)}.exercise{grid-template-columns:42px minmax(0,1fr) 82px 58px;padding:15px 10px;min-height:88px}.exercise-name{font-size:1.08rem}.status-stamp{padding:12px 16px}}
 @media(min-width:1100px){.shell{padding-top:42px}.mast{padding-bottom:30px}.control-deck{top:0}.program-title{font-size:6.7rem}.workspace{grid-template-columns:minmax(0,760px) 1fr;gap:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}}
-</style><style>.app-home{display:inline-flex;align-items:center;min-height:44px;margin:0 0 8px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}.app-home::before{content:"\2190";margin-right:8px;color:var(--signal);font-size:1.1rem}.app-home:focus-visible{outline:3px solid var(--signal);outline-offset:3px}</style>
+</style><style>.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 8px}.app-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}.app-home svg{width:17px;height:17px;fill:none;stroke:var(--signal);stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.app-home:focus-visible{outline:3px solid var(--signal);outline-offset:3px}.daily-status{display:flex;align-items:center;gap:9px;min-height:44px;padding:6px 10px;border:1px solid var(--line);color:var(--signal)}.daily-status>svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5}.daily-status span{display:grid;line-height:1.05}.daily-status strong{font-family:Barlow,Arial Narrow,sans-serif;font-size:.92rem}.daily-status small{margin-top:3px;color:var(--muted);font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}</style>
 </head>
 <body>
   <main class="shell">
-    <a class="app-home" href="index.html?choose=1">Programas</a>
+    <div class="topbar">
+      <a class="app-home" href="index.html?choose=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Programas</a>
+      <div class="daily-status" id="daily-status" aria-label="Sequência diária" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span><strong id="streak-days"></strong><small>check-in hoje</small></span></div>
+    </div>
     <header class="mast">
       <div class="brand">
         <h1 class="program-title">Intermediário</h1>
@@ -238,6 +241,26 @@ $('#reset-btn').onclick = () => {
   if (!confirm('Limpar o progresso deste treino?')) return;
   day.exercises.forEach((_,i)=>delete saved.done[keyFor(i)]); persist(); render(); showToast('Progresso deste treino limpo.');
 };
+function renderDailyStatus() {
+  const params = new URLSearchParams(location.search);
+  let streak = Number.parseInt(params.get('streak') || '', 10);
+  if (!Number.isFinite(streak) || streak < 1) {
+    try {
+      const profile = JSON.parse(localStorage.getItem('gym-app:profile:v1')) || {};
+      const checkins = new Set(Array.isArray(profile.checkins) ? profile.checkins : []);
+      const pad = value => String(value).padStart(2, '0');
+      const dateKey = date => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+      streak = 0;
+      const cursor = new Date(); cursor.setHours(12,0,0,0);
+      while (checkins.has(dateKey(cursor))) { streak += 1; cursor.setDate(cursor.getDate()-1); }
+    } catch { streak = 0; }
+  }
+  if (streak > 0) {
+    $('#streak-days').textContent = `${streak} ${streak === 1 ? 'dia' : 'dias'}`;
+    $('#daily-status').hidden = false;
+  }
+}
+renderDailyStatus();
 render();
 </script>
 </body>
