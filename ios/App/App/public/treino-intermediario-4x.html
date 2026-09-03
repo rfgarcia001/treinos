@@ -63,6 +63,19 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
 </style><style>.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 8px}.app-home{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}.app-home svg{width:17px;height:17px;fill:none;stroke:var(--signal);stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.app-home:focus-visible{outline:3px solid var(--signal);outline-offset:3px}.daily-status{display:flex;align-items:center;gap:9px;min-height:44px;padding:6px 10px;border:1px solid var(--line);color:var(--signal)}.daily-status>svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5}.daily-status span{display:grid;line-height:1.05}.daily-status strong{font-family:Barlow,Arial Narrow,sans-serif;font-size:.92rem}.daily-status small{margin-top:3px;color:var(--muted);font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}</style>
 <style>html{scrollbar-color:var(--line-strong) var(--ground)}*::-webkit-scrollbar{width:10px}*::-webkit-scrollbar-track{background:var(--ground)}*::-webkit-scrollbar-thumb{border:3px solid var(--ground);background:var(--line-strong)}.weight-input:focus-visible{outline:2px solid var(--signal);outline-offset:3px;background:rgba(199,255,60,.045)}@media(max-width:420px){.mast{position:relative;display:block;padding-right:0}.program-title{max-width:none;font-size:clamp(2.55rem,14vw,3.35rem);white-space:nowrap}.status-stamp{position:absolute;right:2px;bottom:19px;padding:8px 10px}}@media(max-width:380px){.exercise{grid-template-columns:34px minmax(0,1fr) 56px 48px;gap:7px}.sets{min-width:48px}.weight-input{font-size:1.3rem}}@media(hover:hover){.daily-status:hover{border-color:var(--line-strong)}.app-home:hover{color:var(--ink)}}</style>
 <style>@media(max-width:420px){.status-stamp{display:flex;align-items:baseline;gap:5px;bottom:24px;border:0;padding:0;font-size:.54rem}.status-stamp strong{display:inline;font-size:1rem}}</style>
+<style>
+.schedule-toggle{display:none;width:100%;min-height:54px;padding:6px 2px;border:0;background:transparent;color:var(--ink);text-align:left}
+.schedule-toggle>span:first-child{display:grid}.schedule-toggle small{color:var(--muted);font-size:.58rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.schedule-toggle strong{margin-top:2px;font-family:Barlow,Arial Narrow,sans-serif;font-size:1.45rem;line-height:1}
+.schedule-action{display:flex;align-items:center;gap:6px;color:var(--signal);font-size:.7rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.schedule-action svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2;transition:transform .18s ease}
+.control-deck[data-open=true] .schedule-action svg{transform:rotate(180deg)}
+.storage-alert{display:flex;align-items:flex-start;gap:10px;margin:12px 0 0;padding:12px;border:1px solid var(--danger);color:var(--danger);font-size:.75rem;line-height:1.45}.storage-alert[hidden]{display:none}.storage-alert svg{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}.storage-alert strong{display:block;color:var(--ink)}
+.technique-guide{margin-top:24px;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line)}.technique-guide[hidden]{display:none}.technique-guide summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;color:var(--warm);font-size:.75rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;list-style:none}.technique-guide summary::-webkit-details-marker{display:none}.technique-guide summary svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2;transition:transform .18s ease}.technique-guide[open] summary svg{transform:rotate(180deg)}.technique-guide>p{max-width:62ch;margin:0 0 16px;color:var(--muted);font-size:.74rem;line-height:1.5}
+.technique-list{display:grid}.technique-item{display:grid;grid-template-columns:minmax(100px,.38fr) 1fr;gap:16px;padding:13px 0;border-top:1px solid var(--line)}.technique-item strong{color:var(--ink);font-size:.76rem}.technique-item span{color:var(--muted);font-size:.74rem;line-height:1.45}
+.completion-panel{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;margin-top:28px;padding:20px 0;border-top:1px solid var(--signal);border-bottom:1px solid var(--line-strong)}.completion-panel[hidden]{display:none}.completion-mark{width:34px;height:34px;padding:7px;background:var(--signal);color:var(--signal-ink);fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5}.completion-panel h3{margin:0;font-family:Barlow,Arial Narrow,sans-serif;font-size:2rem;line-height:.9;text-transform:uppercase}.completion-panel p{margin:8px 0 0;color:var(--muted);font-size:.76rem}.completion-panel>div>strong{display:block;margin-top:10px;color:var(--signal);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}.completion-actions{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}.completion-actions button,.completion-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 14px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);font:inherit;font-size:.72rem;font-weight:850;text-decoration:none}.completion-actions .completion-next{border-color:var(--signal);background:var(--signal);color:var(--signal-ink)}
+.session-actions{display:flex;justify-content:flex-end;margin-top:24px;padding-top:8px}.session-actions .reset{min-height:44px;margin:0}
+.weight-input[aria-invalid=true]{color:var(--danger)}.weight-field.invalid{border-color:var(--danger)}.completion-actions [hidden]{display:none}
+@media(max-width:559px){.control-deck{padding-block:4px}.schedule-toggle{display:flex;align-items:center;justify-content:space-between;gap:16px}.schedule-picker{display:none;padding:6px 0 8px}.control-deck[data-open=true] .schedule-picker{display:block}.technique-item{grid-template-columns:1fr;gap:5px}.completion-panel{padding:18px 2px}.completion-actions{grid-column:1/-1}.completion-actions button,.completion-actions a{flex:1}}
+</style>
 </head>
 <body>
   <main class="shell">
@@ -79,12 +92,16 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
     </header>
 
     <nav class="control-deck" aria-label="Navegação do treino">
+      <button class="schedule-toggle" id="schedule-toggle" type="button" aria-expanded="false" aria-controls="schedule-picker"><span><small>Treino atual</small><strong id="schedule-current">W1 · Dia 1</strong></span><span class="schedule-action">Alterar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="schedule-picker" id="schedule-picker">
       <div class="week-grid" id="week-row" role="group" aria-label="Semanas"><button class="week-btn" type="button" aria-pressed="true">W1</button><button class="week-btn" type="button" aria-pressed="false">W2</button><button class="week-btn" type="button" aria-pressed="false">W3</button><button class="week-btn" type="button" aria-pressed="false">W4</button></div>
       <div class="day-grid" id="day-row" role="group" aria-label="Dias"><button class="day-btn" type="button" aria-pressed="true">Dia Um</button><button class="day-btn" type="button" aria-pressed="false">Dia Dois</button><button class="day-btn" type="button" aria-pressed="false">Dia Três</button><button class="day-btn" type="button" aria-pressed="false">Dia Quatro</button></div>
+      </div>
     </nav>
+    <div class="storage-alert" id="storage-alert" role="alert" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 17h.01M10.3 3.8 2.5 17.3A2 2 0 0 0 4.2 20h15.6a2 2 0 0 0 1.7-2.7L13.7 3.8a2 2 0 0 0-3.4 0Z"/></svg><span><strong>Não foi possível salvar.</strong> Mantenha o app aberto e verifique o armazenamento deste aparelho.</span></div>
 
     <div class="workspace">
-      <section class="context" aria-live="polite">
+      <section class="context">
         <header class="session-head">
           <div>
             <h2 class="session-title" id="session-title">Dia Um</h2>
@@ -131,13 +148,15 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
     </div></div>
         <noscript><p class="source-note"><strong>Visualização simples:</strong> para selecionar outras semanas, marcar exercícios e salvar pesos, abra este arquivo no Safari.</p></noscript>
         <p class="source-note">Conteúdo unificado. Séries e técnicas seguem os PDFs originais.<br><strong>Observação:</strong> este programa possui somente W1–W4 no material fornecido.</p>
+        <section class="completion-panel" id="completion-panel" aria-labelledby="completion-title" hidden><svg class="completion-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><div><h3 id="completion-title">Treino concluído</h3><p id="completion-summary"></p><strong id="completion-next"></strong></div><div class="completion-actions"><button class="completion-next" id="next-workout" type="button">Próximo treino</button><a href="index.html?choose=1">Voltar ao início</a></div></section>
+        <details class="technique-guide" id="technique-guide" hidden><summary>Entenda as técnicas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Explicação dos termos presentes neste treino. Carga, pausas e execução devem seguir a orientação do seu treinador.</p><div class="technique-list" id="technique-list"></div></details>
+        <div class="session-actions"><button class="reset" id="reset-btn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.5 15a7 7 0 0 0 11.8 2.1L20 14M4 10l2.7-3.1A7 7 0 0 1 18.5 9"/></svg>Limpar marcações</button></div>
       </section>
 
       <aside class="side-panel" aria-label="Resumo do treino">
         <h2>Ritmo atual</h2>
         <p>Toque em cada exercício ao concluir. O progresso fica salvo neste aparelho, mesmo fechando a página.</p>
         <div class="side-stat"><span>Progresso</span><strong id="side-progress">0%</strong><span>Exercícios</span><strong id="side-exercises">7</strong></div>
-        <button class="reset" id="reset-btn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.5 15a7 7 0 0 0 11.8 2.1L20 14M4 10l2.7-3.1A7 7 0 0 1 18.5 9"/></svg>Limpar este treino</button>
       </aside>
     </div>
   </main>
@@ -145,10 +164,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--signal);outline-off
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
 const PROGRAM = {"id": "intermediario-4x", "title": "Intermediário", "frequency": "4x por semana", "weeks": [{"week": 1, "days": [{"day": 1, "exercises": [{"exercise": "Pulley frente", "sets": "3", "technique": ""}, {"exercise": "Remada fechada máquina", "sets": "3", "technique": ""}, {"exercise": "Remada pronada aberta", "sets": "3", "technique": ""}, {"exercise": "Crucifixo inverso máquina", "sets": "3", "technique": ""}, {"exercise": "Rosca direta", "sets": "3", "technique": ""}, {"exercise": "Rosca scott", "sets": "3", "technique": ""}, {"exercise": "Extensão lombar", "sets": "3", "technique": ""}]}, {"day": 2, "exercises": [{"exercise": "Agachamento", "sets": "3", "technique": ""}, {"exercise": "Leg press", "sets": "3", "technique": ""}, {"exercise": "Cadeira extensora", "sets": "3", "technique": ""}, {"exercise": "Mesa flexora", "sets": "3", "technique": ""}, {"exercise": "Cadeira flexora", "sets": "3", "technique": ""}, {"exercise": "Panturrilha sentada", "sets": "3", "technique": ""}, {"exercise": "Panturrilha em pé", "sets": "3", "technique": ""}]}, {"day": 3, "exercises": [{"exercise": "Supino máquina", "sets": "3", "technique": ""}, {"exercise": "Dumbbell press 30º", "sets": "3", "technique": ""}, {"exercise": "Crucifixo máquina", "sets": "3", "technique": ""}, {"exercise": "Elevação diagonal", "sets": "3", "technique": ""}, {"exercise": "Tríceps pulley", "sets": "3", "technique": ""}, {"exercise": "Tríceps testa na polia", "sets": "3", "technique": ""}, {"exercise": "Abdominal máquina", "sets": "3", "technique": ""}]}, {"day": 4, "exercises": [{"exercise": "Pulley frente", "sets": "3", "technique": ""}, {"exercise": "Pulley frente com triângulo", "sets": "3", "technique": ""}, {"exercise": "Desenvolvimento com dumbbell", "sets": "3", "technique": ""}, {"exercise": "Rosca simultanea", "sets": "3", "technique": ""}, {"exercise": "Triceps francês", "sets": "3", "technique": ""}, {"exercise": "Agachamento", "sets": "3", "technique": ""}]}]}, {"week": 2, "days": [{"day": 1, "exercises": [{"exercise": "Pulley frente", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Remada baixa", "sets": "3", "technique": "Drop set"}, {"exercise": "Remada pronada aberta máquina", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Crucifixo inverso na polia", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Rosca simultanea", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Rosca 45º", "sets": "3", "technique": "Drop set"}, {"exercise": "Extensão lombar", "sets": "3", "technique": ""}]}, {"day": 2, "exercises": [{"exercise": "Agachamento frontal", "sets": "4", "technique": ""}, {"exercise": "Leg press", "sets": "3", "technique": ""}, {"exercise": "Agachamento búlgaro", "sets": "3", "technique": ""}, {"exercise": "Cadeira abdutora", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Cadeira flexora", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Flexora em pé uni", "sets": "3", "technique": "No stop"}, {"exercise": "Stiff", "sets": "3", "technique": ""}, {"exercise": "Panturrilha sentada", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Panturrilha em pé uni", "sets": "3", "technique": "Contração de pico + No stop"}]}, {"day": 3, "exercises": [{"exercise": "Dumbbell press", "sets": "3", "technique": ""}, {"exercise": "Dumbbell press 30º", "sets": "3", "technique": ""}, {"exercise": "Cross over", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Desenvolvimento máquina", "sets": "3", "technique": "Drop set"}, {"exercise": "Elevação diagonal", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Triceps testa na polia uni", "sets": "3", "technique": "No stop"}, {"exercise": "Triceps pulley", "sets": "3", "technique": "Drop set"}, {"exercise": "Prancha ventral", "sets": "3", "technique": ""}]}, {"day": 4, "exercises": [{"exercise": "Remada fechada máquina", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Pull over", "sets": "3", "technique": ""}, {"exercise": "Dumbbell press", "sets": "3", "technique": "Drop set"}, {"exercise": "Elevação lateral uni polia baixa", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Rosca direta na polia baixa", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Triceps pulley corda", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Abdominal máquina", "sets": "3", "technique": "Contração de pico"}]}]}, {"week": 3, "days": [{"day": 1, "exercises": [{"exercise": "Pulley frente", "sets": "2", "technique": "Cluster"}, {"exercise": "Remada baixa", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Remada do Lalá", "sets": "3", "technique": "Drop set"}, {"exercise": "Remada pronada aberta", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Crucifixo inverso máquina", "sets": "3", "technique": "Contração de pico + Drop set"}, {"exercise": "Rosca direta polia baixa", "sets": "3", "technique": "Cluster"}, {"exercise": "Rosca 45º", "sets": "3", "technique": "Drop set"}, {"exercise": "Extensão lombar", "sets": "3", "technique": "Contração de pico"}]}, {"day": 2, "exercises": [{"exercise": "Leg press", "sets": "2", "technique": "Cluster"}, {"exercise": "Agachamento", "sets": "3", "technique": "1 rest"}, {"exercise": "Agachamento hack", "sets": "3", "technique": "Excêntrica lenta"}, {"exercise": "Cadeira abdutora", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Mesa flexora", "sets": "2", "technique": "Cluster"}, {"exercise": "Cadeira flexora", "sets": "3", "technique": "Contração de pico"}, {"exercise": "Flexora em pé uni", "sets": "3", "technique": "No stop"}, {"exercise": "Panturrilha sentada", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Panturrilha em pé", "sets": "3", "technique": "Contração de pico"}]}, {"day": 3, "exercises": [{"exercise": "Supino máquina", "sets": "2", "technique": "Cluster"}, {"exercise": "Dumbbell press inclinado 30º", "sets": "3", "technique": "1 Rest"}, {"exercise": "Crucifixo máquina", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Desenvolvimento com dumbbell", "sets": "3", "technique": ""}, {"exercise": "Elevação lateral uni na polia", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Tríceps pulley", "sets": "3", "technique": "Cluster"}, {"exercise": "Tríceps francês", "sets": "3", "technique": "Drop set"}, {"exercise": "Abdominal ajoelhado", "sets": "3", "technique": "Contração de pico + drop set"}]}, {"day": 4, "exercises": [{"exercise": "pronada aberta máquina", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Pulley com triângulo", "sets": "3", "technique": "Drop set"}, {"exercise": "Cross over", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Elevação diagonal", "sets": "3", "technique": "Contração de pico + drop set"}, {"exercise": "Rosca scott máquina", "sets": "3", "technique": "Drop set"}, {"exercise": "Triceps testa na polia", "sets": "3", "technique": "Drop set"}, {"exercise": "Leg 45º", "sets": "3", "technique": "1 rest"}, {"exercise": "Cadeira flexora", "sets": "3", "technique": "Drop set"}, {"exercise": "Prancha ventral", "sets": "3", "technique": ""}]}]}, {"week": 4, "days": [{"day": 1, "exercises": [{"exercise": "Pulley frente", "sets": "1", "technique": "Cluster"}, {"exercise": "Pulley frente", "sets": "4", "technique": "Drop set"}, {"exercise": "Remada fechada máquina", "sets": "4", "technique": "Contração de pico"}, {"exercise": "Pulldown", "sets": "1", "technique": "FST-7"}, {"exercise": "Crucifixo inverso máquina", "sets": "4", "technique": "Contração de pico"}, {"exercise": "Rosca direta na polia baixa", "sets": "1", "technique": "Cluster"}, {"exercise": "Rosca direta na polia baixa", "sets": "4", "technique": "Drop set"}, {"exercise": "Rosca scott máquina", "sets": "4", "technique": "Contração de pico + Drop set"}, {"exercise": "Extensão lombar", "sets": "4", "technique": "Contração de pico"}]}, {"day": 2, "exercises": [{"exercise": "Leg press horizontal", "sets": "1", "technique": "Cluster"}, {"exercise": "Leg press horizontal", "sets": "4", "technique": "Drop set"}, {"exercise": "Agachamento livre", "sets": "4", "technique": ""}, {"exercise": "Cadeira extensora", "sets": "4", "technique": "Contração de pico + drop"}, {"exercise": "Mesa flexora", "sets": "4", "technique": "Contração de pico + drop"}, {"exercise": "Cadeira flexora", "sets": "4", "technique": "Contração de pico + drop"}, {"exercise": "Stiff", "sets": "4", "technique": ""}, {"exercise": "Cadeira abdutora", "sets": "4", "technique": "Contração de pico + drop"}, {"exercise": "Panturrilha sentado", "sets": "4", "technique": "Contração de pico + drop"}, {"exercise": "Panturrilha em pé uni", "sets": "4", "technique": "Contração de pico + no stop"}]}, {"day": 3, "exercises": [{"exercise": "Supino máquina", "sets": "1", "technique": "Cluster"}, {"exercise": "Supino máquina", "sets": "4", "technique": "Drop set"}, {"exercise": "Dumbbell press 30º", "sets": "4", "technique": "1 Rest"}, {"exercise": "Crucifixo máquina", "sets": "1", "technique": "FST-7"}, {"exercise": "Desenvolvimento barra frente", "sets": "4", "technique": "Contração de pico + no stop"}, {"exercise": "Elevação lateral polia baixa", "sets": "4", "technique": "Contração de pico + no stop"}, {"exercise": "Triceps pulley", "sets": "1", "technique": "Cluster"}, {"exercise": "Triceps testa na polia corda", "sets": "4", "technique": "Contração de pico + Drop"}, {"exercise": "Abdominal infra na prancha", "sets": "4", "technique": "Contração de pico"}]}, {"day": 4, "exercises": [{"exercise": "Remada fechada máquina", "sets": "4", "technique": ""}, {"exercise": "Pull over", "sets": "4", "technique": ""}, {"exercise": "Crucifixo inverso", "sets": "4", "technique": ""}, {"exercise": "Elevação diagonal", "sets": "4", "technique": ""}, {"exercise": "Rosca direta", "sets": "4", "technique": ""}, {"exercise": "Tríceps francês", "sets": "4", "technique": ""}, {"exercise": "Agachamento hack", "sets": "4", "technique": ""}, {"exercise": "Mesa flexora", "sets": "4", "technique": ""}, {"exercise": "Abdominal máquina", "sets": "4", "technique": ""}]}]}]};
-const DAYS = ['Um','Dois','Três','Quatro','Cinco'];
 const storageKey = `gym-guide:${PROGRAM.id}:v2`;
 let saved;
-try { saved = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch { saved = {}; }
+let storageAvailable = true;
+try { saved = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch { saved = {}; storageAvailable = false; }
 saved.done = saved.done || {};
 saved.weights = saved.weights || {};
 const state = {
@@ -160,6 +179,8 @@ const weekRow = $('#week-row');
 const dayRow = $('#day-row');
 const list = $('#exercise-list');
 const toast = $('#toast');
+const scheduleDeck = $('.control-deck');
+const scheduleToggle = $('#schedule-toggle');
 
 function current() {
   state.week = Math.min(state.week, PROGRAM.weeks.length - 1);
@@ -170,8 +191,11 @@ function current() {
 function keyFor(index) { return `${state.week}.${state.day}.${index}`; }
 function persist() {
   saved.week = state.week; saved.day = state.day;
-  try { localStorage.setItem(storageKey, JSON.stringify(saved)); } catch {}
+  try { localStorage.setItem(storageKey, JSON.stringify(saved)); return true; }
+  catch { storageAvailable = false; showStorageWarning(); return false; }
 }
+function showStorageWarning() { $('#storage-alert').hidden = false; }
+function setScheduleOpen(open) { scheduleDeck.dataset.open = String(open); scheduleToggle.setAttribute('aria-expanded', String(open)); }
 function button(label, className, index, active, onClick) {
   const el = document.createElement('button');
   el.className = className; el.type = 'button'; el.textContent = label;
@@ -184,13 +208,62 @@ function replaceContents(element, children) {
   children.forEach(child => element.appendChild(child));
 }
 function renderControls() {
-  const { week } = current();
+  const { week, day } = current();
+  $('#schedule-current').textContent = `W${week.week} · Dia ${day.day}`;
   replaceContents(weekRow, PROGRAM.weeks.map((item, i) => button(`W${item.week}`, 'week-btn', i, i === state.week, index => { state.week=index; state.day=0; render(); })));
-  replaceContents(dayRow, week.days.map((item, i) => button(`Dia ${DAYS[item.day-1] || item.day}`, 'day-btn', i, i === state.day, index => { state.day=index; render(); })));
+  replaceContents(dayRow, week.days.map((item, i) => button(`Dia ${item.day}`, 'day-btn', i, i === state.day, index => { state.day=index; setScheduleOpen(false); render(); })));
 }
 function completedCount() {
   const { day } = current();
   return day.exercises.reduce((sum, _, i) => sum + (saved.done[keyFor(i)] ? 1 : 0), 0);
+}
+const TECHNIQUE_HELP = [
+  [/falta link/i, 'O material original registra um link ausente. Confirme esta execução com seu treinador.'],
+  [/cluster/i, 'Repetições divididas em pequenos blocos, com pausas curtas dentro da série.'],
+  [/drop|strip set/i, 'Redução da carga para continuar a série.'],
+  [/rest/i, 'Pausa curta dentro da série antes de retomar as repetições.'],
+  [/contração de pico/i, 'Pausa breve na posição de maior contração muscular.'],
+  [/excêntrica lenta/i, 'Retorno do movimento executado de forma lenta e controlada.'],
+  [/no stop/i, 'Repetições contínuas, sem pausa indicada no material.'],
+  [/bi\s*-?\s*set/i, 'Dois exercícios associados executados em sequência.'],
+  [/fst-?7/i, 'Método de sete séries, normalmente aplicado ao último exercício do grupo muscular.'],
+  [/(30|100)\s*reps/i, 'Meta total de repetições registrada no material.']
+];
+function explainTechnique(label) {
+  const explanations = TECHNIQUE_HELP.filter(([pattern]) => pattern.test(label)).map(([, text]) => text);
+  return [...new Set(explanations)].join(' ') || 'Técnica citada no material original. Confirme a execução com seu treinador.';
+}
+function renderTechniqueGuide(day) {
+  const labels = [...new Set(day.exercises.map(item => item.technique).filter(Boolean))];
+  const guide = $('#technique-guide');
+  guide.hidden = labels.length === 0;
+  if (!labels.length) { replaceContents($('#technique-list'), []); guide.open = false; return; }
+  const items = labels.map(label => {
+    const item = document.createElement('div'); item.className = 'technique-item';
+    const name = document.createElement('strong'); name.textContent = label;
+    const description = document.createElement('span'); description.textContent = explainTechnique(label);
+    item.append(name, description); return item;
+  });
+  replaceContents($('#technique-list'), items);
+}
+function nextSession() {
+  const week = PROGRAM.weeks[state.week];
+  if (state.day + 1 < week.days.length) return {weekIndex:state.week, dayIndex:state.day+1, label:`W${week.week} · Dia ${week.days[state.day+1].day}`};
+  if (state.week + 1 < PROGRAM.weeks.length) return {weekIndex:state.week+1, dayIndex:0, label:`W${PROGRAM.weeks[state.week+1].week} · Dia ${PROGRAM.weeks[state.week+1].days[0].day}`};
+  return null;
+}
+function renderCompletion(day, total, completed) {
+  const panel = $('#completion-panel');
+  const complete = total > 0 && completed === total;
+  panel.hidden = !complete;
+  if (!complete) return;
+  const weights = day.exercises.reduce((sum, _, index) => sum + (saved.weights[keyFor(index)] ? 1 : 0), 0);
+  $('#completion-summary').textContent = storageAvailable
+    ? `${total} exercícios concluídos · ${weights} ${weights === 1 ? 'peso registrado' : 'pesos registrados'}. Tudo salvo neste aparelho.`
+    : `${total} exercícios concluídos · armazenamento indisponível neste aparelho.`;
+  const next = nextSession();
+  $('#completion-next').textContent = next ? `Próximo: ${next.label}` : 'Ciclo completo';
+  $('#next-workout').hidden = !next;
 }
 function renderProgress() {
   const { day } = current();
@@ -204,6 +277,7 @@ function renderProgress() {
   progress.setAttribute('aria-valuemax',String(total));
   progress.setAttribute('aria-valuenow',String(completed));
   $('#side-progress').textContent = `${percent}%`;
+  renderCompletion(day, total, completed);
 }
 function exerciseRow(item, index) {
   const row = document.createElement('div');
@@ -228,25 +302,41 @@ function exerciseRow(item, index) {
   complete.setAttribute('aria-hidden', 'true'); complete.tabIndex = -1; complete.onclick = toggle;
   copy.setAttribute('aria-label', `Marcar ${completeLabel}`); copy.setAttribute('aria-pressed', row.dataset.complete); copy.onclick = toggle;
   weight.setAttribute('aria-label', `Peso em kg para ${item.exercise}`); weight.value = saved.weights[keyFor(index)] || '';
-  weight.oninput = () => { const key = keyFor(index); if (weight.value) saved.weights[key] = weight.value; else delete saved.weights[key]; persist(); };
+  weight.oninput = () => {
+    const key = keyFor(index);
+    const invalid = Boolean(weight.value) && (!weight.validity.valid || Number(weight.value) < 0);
+    weight.setAttribute('aria-invalid', String(invalid));
+    weight.closest('.weight-field').classList.toggle('invalid', invalid);
+    if (invalid) return;
+    if (weight.value) saved.weights[key] = weight.value; else delete saved.weights[key];
+    persist(); renderProgress();
+  };
+  weight.onchange = () => { if (weight.getAttribute('aria-invalid') === 'true') showToast('Use um peso igual ou maior que zero.'); };
   return row;
 }
 function render() {
   renderControls();
   const { week, day } = current();
-  $('#session-title').textContent = `Dia ${DAYS[day.day-1] || day.day}`;
+  $('#session-title').textContent = `Dia ${day.day}`;
   $('#meta-week').textContent = `W${week.week}`;
   $('#side-exercises').textContent = day.exercises.length;
   replaceContents(list, day.exercises.map(exerciseRow));
-  renderProgress(); persist();
+  renderTechniqueGuide(day);
+  persist(); renderProgress();
   document.title = `${PROGRAM.title} · ${PROGRAM.frequency}`;
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function showToast(message) { toast.textContent = message; toast.classList.add('show'); clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>toast.classList.remove('show'),2200); }
 $('#reset-btn').onclick = () => {
   const { day } = current();
-  if (!confirm('Limpar o progresso deste treino?')) return;
+  if (!confirm('Limpar somente as marcações concluídas deste treino? Os pesos serão mantidos.')) return;
   day.exercises.forEach((_,i)=>delete saved.done[keyFor(i)]); persist(); render(); showToast('Progresso deste treino limpo.');
+};
+scheduleToggle.onclick = () => setScheduleOpen(scheduleDeck.dataset.open !== 'true');
+$('#next-workout').onclick = () => {
+  const next = nextSession();
+  if (!next) return;
+  state.week = next.weekIndex; state.day = next.dayIndex; setScheduleOpen(false); render();
 };
 function renderDailyStatus() {
   const params = new URLSearchParams(location.search);
@@ -268,6 +358,7 @@ function renderDailyStatus() {
   }
 }
 renderDailyStatus();
+if (!storageAvailable) showStorageWarning();
 render();
 </script>
 </body>
